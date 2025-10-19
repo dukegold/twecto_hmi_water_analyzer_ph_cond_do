@@ -1,0 +1,1 @@
+arduino-cli.exe compile --fqbn esp32:esp32:esp32:PartitionScheme=min_spiffs
