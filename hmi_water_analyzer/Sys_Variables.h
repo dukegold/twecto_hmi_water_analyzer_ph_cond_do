@@ -29,11 +29,11 @@ const char auth_pass[] =  "5432";
 #define COMPANY_TITLE "NatureDots Private Limited\n"
 // ############################# Network Related ###################################
 // Server instance settings
-#define IOT_SERVER     "iothub.fogwing.net"
-#define IOT_PUB_TOPIC  "fwent/edge/c506f7c0e07be86d/inbound"
+#define IOT_SERVER     "150.129.31.194"
+#define IOT_PUB_TOPIC  "devices/satpala_t/telemetry"
 #define MQTT_CLIENT_ID "1151-1659-1445-3867"
-#define MQTT_USERNAME  "pzotester"
-#define MQTT_PASS      "Bhasam123#"
+#define MQTT_USERNAME  "iotuser"
+#define MQTT_PASS      "Shubha@41"
 // ############################# Wifi Related ###################################
 #define DEF_WIFI_SSID  "TP-Link_50B6"
 #define DEF_WIFI_PASS  "42374565"

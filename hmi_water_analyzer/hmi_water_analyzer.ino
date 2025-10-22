@@ -616,7 +616,7 @@ void sensorRead(ModbusMaster *cond_sensor, ModbusMaster *ph_sensor, ModbusMaster
     for (int j = 0; j < 2; j++){
       data[j] = cond_sensor->getResponseBuffer(j);
     }
-    *cond_val = ((float) (data[1]<<16+data[0]))/10;
+    *cond_val = ((float) (data[1]+data[0]<<16))/10;
     *is_cond_con = true;
   }
   else{
@@ -690,10 +690,7 @@ void sensor_mqtt( float cond_val,float ph_val, float temp_val, float do_val, boo
   char buf1[20],buf2[20];
   sprintf(buf1,"%d:%d:%d",hour,minute,second);
   sprintf(buf2,"%d-%d-%d",year,month,monthday);
-  if(cond_con && ph_con && do_con)
-    sprintf(str_rep,"{\"device_id\": \"%s\",\"COND_VAL\": %.2f, \"PH_VAL\":%.2f, \"DO_VAL\":%.2f, \"TEMP_VAL\":%.2f, \"create_date\": \"%s\", \"create_time\": \"%s\"}", DEVICE_ID, cond_val, ph_val, do_val, temp_val,buf2,buf1);
-  else
-    sprintf(str_rep,"{\"device_id\": \"%s\",\"COND_VAL\": %.2f, \"PH_VAL\":%.2f, \"DO_VAL\":%.2f, \"TEMP_VAL\":%.2f, \"create_date\": \"%s\", \"create_time\": \"%s\", \"Senscond_Error\":1}", DEVICE_ID, cond_val, ph_val, do_val, temp_val,buf2,buf1);
+  sprintf(str_rep,"{\"timestamp\": \"%sT%s+05:30\",\"ec_μS/cm\": %.2f, \"ph\":%.2f, \"do_mg/l\":%.2f, \"temperature_°C\":%.2f}", buf2, buf1, cond_val, ph_val, do_val, temp_val);
   mqttClient.publish(IOT_PUB_TOPIC, str_rep);
 }
 
