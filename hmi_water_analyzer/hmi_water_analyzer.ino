@@ -686,7 +686,7 @@ void sensorRead(ModbusMaster *cond_sensor, ModbusMaster *ph_sensor, ModbusMaster
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 void sensor_mqtt( float cond_val,float ph_val, float temp_val, float do_val, bool cond_con, bool ph_con, bool do_con){
-  char str_rep[160];
+  char str_rep[200];
   char buf1[20],buf2[20];
   sprintf(buf1,"%d:%d:%d",hour,minute,second);
   sprintf(buf2,"%d-%d-%d",year,month,monthday);
