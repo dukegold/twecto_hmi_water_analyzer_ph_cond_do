@@ -33,4 +33,4 @@
 //#define PIN_PC_RX    3
 #define PIN_CL_TX   33
 #define PIN_CL_RX   32
-#endif PINMAP_H
+#endif

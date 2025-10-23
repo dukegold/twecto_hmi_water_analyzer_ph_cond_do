@@ -19,7 +19,6 @@
 #define DEBUG_EN //Uncomment to print Serial debug
 #include <Arduino.h>
 #include <I2C_eeprom.h>
-#include <SPI.h>
 #include <SD.h>
 #include <Wire.h>
 #include <HardwareSerial.h>
@@ -630,7 +629,7 @@ void sensorRead(ModbusMaster *cond_sensor, ModbusMaster *ph_sensor, ModbusMaster
   esp_task_wdt_reset();
   // Read pH value from sensor -> Address 2, 1 reg
   result = ph_sensor->readHoldingRegisters(2, 1);
-  if (result == ph_sensor->ku8MBSuccess){
+  if (result == ModbusMaster::ku8MBSuccess){
     for (int j = 0; j < 1; j++){
       data[j] = ph_sensor->getResponseBuffer(j);
     }
@@ -651,7 +650,7 @@ void sensorRead(ModbusMaster *cond_sensor, ModbusMaster *ph_sensor, ModbusMaster
     float    f32; // here_read_float
   };
   result = do_sensor->readHoldingRegisters(0x2100, 2);
-  if (result == do_sensor->ku8MBSuccess){
+  if (result == ModbusMaster::ku8MBSuccess){
     for (int j = 0; j < 2; j++){
       data[j] = do_sensor->getResponseBuffer(j);
     }
@@ -670,7 +669,7 @@ void sensorRead(ModbusMaster *cond_sensor, ModbusMaster *ph_sensor, ModbusMaster
   delay(100);
   // Read Temp value from DO sensor
   result = do_sensor->readHoldingRegisters(0x2000, 2);
-  if (result == do_sensor->ku8MBSuccess){
+  if (result == ModbusMaster::ku8MBSuccess){
     for (int j = 0; j < 2; j++){
       data[j] = do_sensor->getResponseBuffer(j);
     }
@@ -690,7 +689,13 @@ void sensorRead(ModbusMaster *cond_sensor, ModbusMaster *ph_sensor, ModbusMaster
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-void sensor_mqtt( float cond_val,float ph_val, float temp_val, float do_val, bool cond_con, bool ph_con, bool do_con){
+void sensor_mqtt( float cond_val,
+                  float ph_val,
+                  float temp_val,
+                  float do_val,
+                  bool cond_con,
+                  bool ph_con,
+                  bool do_con){
   char str_tmp[200];
   char buf1[20],buf2[20];
   sprintf(buf1,"%d:%d:%d",hour,minute,second);
