@@ -1,5 +1,13 @@
-void saveData( float cond_val,float ph_val, float temp_val, float do_val, bool cond_con, bool ph_con, bool do_con, uRTCLib *rtc){
-  String filename = getFilename();
+#include "rtc.h"
+#include "uRTCLib.h"
+#ifndef SAVEDATA_H
+#define SAVEDATA_H
+
+void saveData(String filename, float cond_val,float ph_val, float temp_val, float do_val, bool cond_con, bool ph_con, bool do_con, uRTCLib *rtc);
+String getFilename();
+String decToHex(byte decValue, byte desiredStringLength);
+
+void saveData(String filename, float cond_val,float ph_val, float temp_val, float do_val, bool cond_con, bool ph_con, bool do_con, uRTCLib *rtc){
   bool writeHeader;
   File file;
   #ifdef DEBUG_EN
@@ -66,10 +74,9 @@ void saveData( float cond_val,float ph_val, float temp_val, float do_val, bool c
     Serial.println("SD Data failed!!");
     #endif
   }
-  
 }
 
-String getFilename() {
+String getFilename(byte month, byte year) {
   char buf[10];
   String s = "/";
   s += DEVICE_ID;
@@ -87,3 +94,4 @@ String decToHex(byte decValue, byte desiredStringLength) {
   hexString.toUpperCase();
   return hexString;
 }
+#endif
