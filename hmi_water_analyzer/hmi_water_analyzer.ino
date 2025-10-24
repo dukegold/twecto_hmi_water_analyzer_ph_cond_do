@@ -698,8 +698,8 @@ void sensor_mqtt( float cond_val,
                   bool do_con){
   char str_tmp[200];
   char buf1[20],buf2[20];
-  sprintf(buf1,"%2d:%2d:%2d",hour,minute,second);
-  sprintf(buf2,"%4d-%2d-%2d",2000+year,month,monthday);
+  sprintf(buf1,"%02d:%02d:%02d",hour,minute,second);
+  sprintf(buf2,"%04d-%02d-%02d",2000+year,month,monthday);
   sprintf(str_tmp,"{\"timestamp\":\"%sT%s+05:30\",\"ec_uS_cm\":%.2f,\"ph\":%.2f,\"do_mg_per_l\":%.2f,\"temperature_degC\":%.2f}", buf2, buf1, cond_val, ph_val, do_val, temp_val);
   mqttClient.publish(IOT_PUB_TOPIC, str_tmp);
 }
